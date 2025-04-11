@@ -14,7 +14,7 @@ class Tweet(models.Model):
     tweet_id = models.CharField(max_length=20, primary_key=True)
     username = models.CharField(max_length=255)
     author_id = models.BigIntegerField()
-    tweet_text = models.TextField()
+    tweet_text = models.TextField(default="")
     created_at = models.DateTimeField()
 
 
@@ -22,18 +22,7 @@ class TextThroughTweet(models.Model):
     """
         A model to store the texts that were generated through the tweets.
     """
-    id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True, auto_created=True)
     text = models.TextField()
+    ciphered_text = models.TextField(default="")
     created_at = models.DateTimeField(auto_now_add=True)
-    
-class TextTweetOrder(models.Model):
-    """
-        Intermediate model to store the order of tweets in a TextThroughTweet.
-    """
-    ttt = models.ForeignKey(TextThroughTweet, on_delete=models.CASCADE)
-    tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField()
-    
-    class Meta:
-        ordering = ['order']
-        unique_together = ['ttt', 'order']
