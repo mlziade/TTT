@@ -10,6 +10,11 @@
         {% endblock %}  
     </title>
 
+    <!-- Bootstrap CSS and JS -->
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
     <!-- CSS -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'base.css' %}">
@@ -23,8 +28,8 @@
             <img src="{% static 'logo.png' %}" alt="TTT Logo">
         </div>
         <ul class="nav-links">
-            <li><a href="#" class="active">Home</a></li>
-            <li><a href="#">Text</a></li>
+            <li><a href="{% url 'text_through_tweet:home' %}" class="active">Home</a></li>
+            <li><a href="{% url 'text_through_tweet:text' %}">Text</a></li>
             <li><a href="#">Decode</a></li>
         </ul>
     </nav>

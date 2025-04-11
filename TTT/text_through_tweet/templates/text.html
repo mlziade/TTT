@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Text Through Tweets
+{% endblock %}
+
+{% block extra_css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'text.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>Write your message</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.text.label_tag }}
+            {{ form.text }}
+            {% if form.text.errors %}
+                <div class="error">{{ form.text.errors }}</div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+    
+    {% if text %}
+        <div class="message">
+            <h2>Your message:</h2>
+            <p>{{ text }}</p>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,97 @@
+/* Text Through Tweet - Text Page Styles */
+
+h1 {
+    color: #e61919;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    min-height: 150px;
+    background-color: #fcfaf5;
+}
+
+.form-group textarea:focus {
+    border-color: #e61919;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(230, 25, 25, 0.2);
+}
+
+.error {
+    color: #e61919;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: #e61919 !important;
+    border-color: #e61919 !important;
+    padding: 0.6rem 2rem;
+    font-weight: 600;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #d41616 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(230, 25, 25, 0.3);
+}
+
+.message {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.message h2 {
+    color: #e61919;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.message p {
+    background-color: #fcfaf5;
+    padding: 1.2rem;
+    border-radius: 6px;
+    border-left: 3px solid #e61919;
+    white-space: pre-wrap;
+    margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .form-group {
+        padding: 1.2rem;
+    }
+    
+    .btn-primary {
+        width: 100%;
+    }
+}
