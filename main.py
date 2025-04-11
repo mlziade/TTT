@@ -60,6 +60,25 @@ def recent_search(word: str):
 
     return tweets
 
+def get_tweet_from_id(tweet_id: str):
+    BEARER_TOKEN = os.environ.get("TWITTER_BEARER_TOKEN")
+    if not BEARER_TOKEN:
+        raise Exception("TWITTER_BEARER_TOKEN not found in environment variables")
+    
+    BASE_URL = "https://api.twitter.com/"
+
+    url = BASE_URL + f"2/tweets/{tweet_id}"
+    headers = {
+        "Authorization": f"Bearer {BEARER_TOKEN}",
+    }
+    
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        raise Exception(f"Request returned an error: {response.status_code}, {response.text}")
+    
+    tweet_data = response.json().get("data", {})    
+    return tweet_data
+
 def main():
     # print(full_archive_search("python"))
     print(recent_search("python"))
