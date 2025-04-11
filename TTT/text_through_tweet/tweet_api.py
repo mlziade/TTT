@@ -1,6 +1,10 @@
 import os
 import dotenv
 import requests
+from datetime import datetime
+from django.utils.timezone import now as Now
+
+from .models import Tweet
 
 dotenv.load_dotenv()
 
@@ -63,3 +67,45 @@ def get_tweet_from_id(tweet_id: str):
     
     tweet_data = response.json().get("data", {})    
     return tweet_data
+
+def search_new_word(word: str) -> Tweet:
+    """
+        This function searches for a new word in the Twitter API and saves it to the database.
+        It first checks if the word already exists in the database, if it does, it returns it.
+        If it doesn't, it searches for it in the Twitter API and saves it to the database.
+    """
+    # Search for the word in the database
+    # If it exists, return it
+    if Tweet.objects.filter(target_word=word).exists():
+        #TODO: Validate the tweet
+        return Tweet.objects.get(target_word=word)
+    
+    # If it doesn't exist, search for it in the Twitter API
+    tweets = recent_search(word)
+    if not tweets:
+        raise Exception(f"No tweets found for {word}")
+    
+    # Check if the tweet already exists in the database
+    # There cannot be two target words with the same tweet id
+    for tweet in tweets:
+        if Tweet.objects.filter(tweet_id=tweet["id"]).exists():
+            raise Exception(f"Tweet with id {tweet['id']} already exists in the database")
+        
+        word_position: int = tweet["text"].lower().index(word) if word in tweet["text"] else 0
+        
+        # Create a new tweet object and save it to the database
+        tweet_obj = Tweet(
+            target_word=word,
+            target_word_position=word_position,
+            last_checked_at=Now(),
+            tweet_id=tweet["id"],
+            username=tweet["author_id"],
+            author_id=tweet["author_id"],
+            tweet_text=tweet["text"],
+            created_at=["created_at"],
+        )
+        tweet_obj.save()
+
+        break
+
+    return tweet_obj
