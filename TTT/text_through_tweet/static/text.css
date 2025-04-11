@@ -67,13 +67,40 @@ h1 {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+}
+
+.message.highlight {
+    box-shadow: 0 0 15px rgba(230, 25, 25, 0.4);
+    transform: translateY(-3px);
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 .message h2 {
     color: #e61919;
-    margin-bottom: 1rem;
     font-size: 1.3rem;
     font-weight: 600;
+    margin: 0;
+}
+
+.btn-copy {
+    background-color: #f7f7f7;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-copy:hover {
+    background-color: #e0e0e0;
 }
 
 .message p {
@@ -83,6 +110,30 @@ h1 {
     border-left: 3px solid #e61919;
     white-space: pre-wrap;
     margin: 0;
+    font-family: monospace;
+    font-size: 1rem;
+}
+
+.result-info {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.info-pill {
+    background-color: #e6f9e6;
+    color: #2c882c;
+    border-radius: 20px;
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.info-pill::before {
+    content: "✓";
+    margin-right: 5px;
+    font-weight: bold;
 }
 
 /* Responsive adjustments */
@@ -93,5 +144,15 @@ h1 {
     
     .btn-primary {
         width: 100%;
+    }
+    
+    .result-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .btn-copy {
+        margin-top: 1rem;
+        align-self: flex-end;
     }
 }

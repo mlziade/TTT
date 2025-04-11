@@ -12,7 +12,7 @@
 {% block content %}
     <h1>Write your message</h1>
     
-    <form method="post">
+    <form method="post" id="message-form">
         {% csrf_token %}
         <div class="form-group">
             {{ form.text.label_tag }}
@@ -21,13 +21,39 @@
                 <div class="error">{{ form.text.errors }}</div>
             {% endif %}
         </div>
-        <button type="submit" class="btn btn-primary">Send</button>
+        <button type="submit" class="btn btn-primary">Encode Message</button>
     </form>
     
     {% if text %}
-        <div class="message">
-            <h2>Your message:</h2>
-            <p>{{ text }}</p>
+        <div class="message" id="cipher-result">
+            <div class="result-header">
+                <h2>Your cipher text:</h2>
+                <button class="btn-copy" onclick="copyToClipboard()">
+                    <span>Copy</span>
+                </button>
+            </div>
+            <p id="cipher-text">{{ cipher_text }}</p>
+            <div class="result-info">
+                <div class="info-pill">Encoded successfully</div>
+            </div>
         </div>
+        <script>
+            function copyToClipboard() {
+                const text = document.getElementById('cipher-text').innerText;
+                navigator.clipboard.writeText(text);
+                const copyBtn = document.querySelector('.btn-copy span');
+                copyBtn.innerText = "Copied!";
+                setTimeout(() => { copyBtn.innerText = "Copy"; }, 2000);
+            }
+            
+            // Highlight the result on page load if it exists
+            document.addEventListener('DOMContentLoaded', function() {
+                const cipherResult = document.getElementById('cipher-result');
+                if (cipherResult) {
+                    cipherResult.classList.add('highlight');
+                    setTimeout(() => { cipherResult.classList.remove('highlight'); }, 1000);
+                }
+            });
+        </script>
     {% endif %}
 {% endblock %}
