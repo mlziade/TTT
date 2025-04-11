@@ -30,7 +30,7 @@ def recent_search(word: str):
     query_params = {
         "query": f"{word}",
         # "max_results": 1,
-        "tweet.fields": "text,id",
+        "tweet.fields": "text,id,username,author_id,created_at",
     }
     
     response = requests.get(url, headers=headers, params=query_params)
@@ -99,7 +99,7 @@ def search_new_word(word: str) -> Tweet:
             target_word_position=word_position,
             last_checked_at=Now(),
             tweet_id=tweet["id"],
-            username=tweet["author_id"],
+            username=tweet["username"],
             author_id=tweet["author_id"],
             tweet_text=tweet["text"],
             created_at=["created_at"],
