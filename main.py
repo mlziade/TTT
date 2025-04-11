@@ -52,7 +52,13 @@ def recent_search(word: str):
     response = requests.get(url, headers=headers, params=query_params)
     if response.status_code != 200:
         raise Exception(f"Request returned an error: {response.status_code}, {response.text}")
-    return response.json()
+    
+    tweets = response.json().get("data", [])
+    # for tweet in tweets:
+    #     print(f"Tweet ID: {tweet['id']}")
+    #     print(f"Tweet Text: {tweet['text']}")
+
+    return tweets
 
 def main():
     # print(full_archive_search("python"))
