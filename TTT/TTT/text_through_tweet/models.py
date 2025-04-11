@@ -7,7 +7,7 @@ class Tweet(models.Model):
         Target word is the word that was used to search for the tweet. There is only one entry for each target word.
         Last checked is used to make sure that the tweet is still valid/visible.
     """
-    target_word = models.CharField(max_length=255, primary_key=True)
+    target_word = models.CharField(max_length=255, unique=True)
     target_word_position = models.IntegerField()
     last_checked_at = models.DateTimeField()
     # Tweet Metadata
@@ -22,6 +22,7 @@ class TextThroughTweet(models.Model):
     """
         A model to store the texts that were generated through the tweets.
     """
+    id = models.AutoField(primary_key=True)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     
@@ -35,4 +36,4 @@ class TextTweetOrder(models.Model):
     
     class Meta:
         ordering = ['order']
-        unique_together = ['text', 'order']
+        unique_together = ['ttt', 'order']
