@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        {% endblock %}  
+    </title>
+
+    <!-- CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'logo.png' %}" alt="TTT Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Text</a></li>
+            <li><a href="#">Decode</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 <span>Text Through Tweets</span>. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

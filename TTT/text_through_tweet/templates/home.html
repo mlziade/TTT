@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}
+    Text Through Tweets
+{% endblock %}
 
-  <title>Home</title>
-</head>
+{% block extra_css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock %}
 
-<body>
-    <h1>Home</h1>
-</body>
-
-</html>
+{% block content %}
+    <h1>Welcome to Text Through Tweets</h1>
+    <p>Encode your messages using tweets and decode them with ease.</p>
+{% endblock %}
