@@ -8,7 +8,7 @@ from .models import Tweet
 
 dotenv.load_dotenv()
 
-def recent_search(word: str):
+def recent_search(word: str) -> list:
     """
         This function performs a recent search on Twitter using the Twitter API v2.
         It retrieves tweets that match the given word, phrase or query.
@@ -28,18 +28,17 @@ def recent_search(word: str):
         "Authorization": f"Bearer {BEARER_TOKEN}",
     }
     query_params = {
-        "query": f"{word}",
-        # "max_results": 1,
-        "tweet.fields": "text,id,username,author_id,created_at",
+        "query": f"{word} -is:retweet",
+        "tweet.fields": "text,id,created_at",
+        "user.fields": "username",
+        "expansions": "author_id",
     }
     
     response = requests.get(url, headers=headers, params=query_params)
     if response.status_code != 200:
         raise Exception(f"Request returned an error: {response.status_code}, {response.text}")
     
-    tweets = response.json().get("data", [])
-
-    return tweets
+    return response.json()["data"]
 
 def get_tweet_from_id(tweet_id: str):
     """
@@ -65,8 +64,7 @@ def get_tweet_from_id(tweet_id: str):
     if response.status_code != 200:
         raise Exception(f"Request returned an error: {response.status_code}, {response.text}")
     
-    tweet_data = response.json().get("data", {})    
-    return tweet_data
+    return response.json()
 
 def search_new_word(word: str) -> Tweet:
     """
@@ -99,10 +97,10 @@ def search_new_word(word: str) -> Tweet:
             target_word_position=word_position,
             last_checked_at=Now(),
             tweet_id=tweet["id"],
-            username=tweet["username"],
+            username=tweet["username"] if tweet.get("username") else "",
             author_id=tweet["author_id"],
             tweet_text=tweet["text"],
-            created_at=["created_at"],
+            created_at=tweet["created_at"],
         )
         tweet_obj.save()
 
