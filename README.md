@@ -4,6 +4,10 @@
 
 This project enables communication using a cipher-like approach. It breaks down a message into multiple tweets, strategically using words to reconstruct the original phrase.
 
+## Updates
+
+29/04/2025 - Because of the insane pricing and rate-limiting of the Twitter's API, i pivoted from this ideia to create [KeyCrypt](https://github.com/mlziade/keycrypt). Check it out!
+
 ## Roadmap
 
 - Decoding
